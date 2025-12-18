@@ -33,7 +33,16 @@ in
 
   # SDDM Configuration
   services.displayManager.sddm = {
-    enable = true;
-    theme = "catppuccin";
-  };
-}
+        enable = true;
+        wayland = {
+          enable = true;
+        };
+        package = pkgs.kdePackages.sddm;
+        extraPackages = with pkgs; [
+          kdePackages.qtsvg
+          kdePackages.qtmultimedia
+          kdePackages.qtvirtualkeyboard
+        ];
+        theme = "sddm-astronaut-theme";
+      };
+  }
