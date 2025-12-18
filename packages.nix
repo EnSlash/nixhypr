@@ -65,6 +65,7 @@
     iperf2
     btop
     pkgs.catppuccin-sddm
+    swayidle
   ];
 
   fonts.packages = with pkgs; [

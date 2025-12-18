@@ -22,4 +22,28 @@
   # Hyprpaper configuration
   home.file.".config/hypr/hyprpaper.conf".source = ./hyprpaper.conf;
   home.file.".config/hypr/wallpaper.jpg".source = ../wallpapers/desk.jpg;
+
+  # Hyprlock configuration
+  home.file.".config/hypr/hyprlock.conf".source = ./hyprlock.conf;
+
+  # Autolock with swayidle
+  systemd.user.services.swayidle = {
+    Unit = {
+      Description = "Lock screen on idle";
+      After = [ "hyprland-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = ''
+        ${pkgs.swayidle}/bin/swayidle \
+          timeout 300 '${pkgs.hyprlock}/bin/hyprlock' \
+          before-sleep '${pkgs.hyprlock}/bin/hyprlock'
+      '';
+      Restart = "on-failure";
+      RestartSec = 5;
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
 }
