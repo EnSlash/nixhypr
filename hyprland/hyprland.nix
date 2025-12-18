@@ -12,7 +12,7 @@
   };
 
   # Link the hyprland.conf file
-  home.file.".config/hyprland/hyprland.conf".source = ./hyprland.conf;
+  home.file.".config/hypr/hyprland.conf".source = ./hyprland.conf;
 
   # Waybar configuration
   programs.waybar.enable = true;
