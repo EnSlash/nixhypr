@@ -64,7 +64,7 @@
     tcpdump
     iperf2
     btop
-    sddm-chili-theme
+    pkgs.sddm-chili-theme
   ];
 
   fonts.packages = with pkgs; [
