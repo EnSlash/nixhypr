@@ -43,6 +43,6 @@ in
           kdePackages.qtmultimedia
           kdePackages.qtvirtualkeyboard
         ];
-        theme = "sddm-astronaut-theme";
+        theme = "catppuccin-mocha-mauve";
       };
   }
