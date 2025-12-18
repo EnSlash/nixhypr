@@ -64,6 +64,7 @@
     tcpdump
     iperf2
     btop
+    hyprland
     catppuccin-sddm
   ];
 
