@@ -35,6 +35,5 @@ in
   services.displayManager.sddm = {
     enable = true;
     theme = "catppuccin";
-    wayland.enable = true;
   };
 }
