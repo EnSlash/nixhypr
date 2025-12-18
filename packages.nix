@@ -64,7 +64,6 @@
     tcpdump
     iperf2
     btop
-    hyprland
     pkgs.catppuccin-sddm
   ];
 

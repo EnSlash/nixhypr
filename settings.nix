@@ -42,13 +42,8 @@ in
       ];
       theme = "catppuccin-mocha-mauve";
     };
-  
-    # Manually create the Hyprland session file
-    environment.etc."share/wayland-sessions/hyprland.desktop".text = ''
-      [Desktop Entry]
-      Name=Hyprland
-      Comment=An intelligent dynamic tiling Wayland compositor
-      Exec=Hyprland
-      Type=Application
-    '';
-  }
+  };
+
+  # Enable Hyprland system-wide
+  programs.hyprland.enable = true;
+}
