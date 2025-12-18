@@ -31,8 +31,9 @@ in
   boot.kernelParams = [ "acpi=strict" ];
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
 
-    # Display Manager Configuration
-    services.displayManager.sddm = {
+  # Display Manager Configuration
+  services.displayManager = {
+    sddm = {
       enable = true;
       wayland.enable = true;
       extraPackages = with pkgs; [
