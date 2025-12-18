@@ -30,4 +30,10 @@ in
 
   boot.kernelParams = [ "acpi=strict" ];
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
+
+  # SDDM Configuration
+  services.displayManager.sddm = {
+    enable = true;
+    theme = "catppuccin";
+  };
 }
