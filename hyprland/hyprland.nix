@@ -36,7 +36,7 @@
     Service = {
       ExecStart = ''
         ${pkgs.swayidle}/bin/swayidle \
-          timeout 300 '${pkgs.hyprlock}/bin/hyprlock' \
+          timeout 60 '${pkgs.hyprlock}/bin/hyprlock' \
           before-sleep '${pkgs.hyprlock}/bin/hyprlock'
       '';
       Restart = "on-failure";
