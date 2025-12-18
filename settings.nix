@@ -34,7 +34,7 @@ in
   # SDDM Configuration
   services.displayManager.sddm = {
     enable = true;
-    theme = "chili";
+    theme = "catppuccin";
     wayland.enable = true;
   };
 }
