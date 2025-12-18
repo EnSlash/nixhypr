@@ -18,6 +18,7 @@ in
   ];
 
   home-manager.users.iershov = import ./home.nix;
+  home-manager.backupFileExtension = "backup";
 
 
 
