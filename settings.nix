@@ -31,10 +31,8 @@ in
   boot.kernelParams = [ "acpi=strict" ];
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
 
-  # Display Manager Configuration
-  services.displayManager = {
-    sessionPackages = [ pkgs.hyprland ];
-    sddm = {
+    # Display Manager Configuration
+    services.displayManager.sddm = {
       enable = true;
       wayland.enable = true;
       extraPackages = with pkgs; [
@@ -44,5 +42,13 @@ in
       ];
       theme = "catppuccin-mocha-mauve";
     };
-  };
+  
+    # Manually create the Hyprland session file
+    environment.etc."share/wayland-sessions/hyprland.desktop".text = ''
+      [Desktop Entry]
+      Name=Hyprland
+      Comment=An intelligent dynamic tiling Wayland compositor
+      Exec=Hyprland
+      Type=Application
+    '';
   }
