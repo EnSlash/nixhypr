@@ -2,16 +2,14 @@
 
 {
   # Enable Hyprland
-  programs.hyprland = {
+  wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
   };
 
   # Enable xdg-desktop-portal-hyprland
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
-  };
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
 
   # Set environment variables for Wayland
   home.sessionVariables = {
