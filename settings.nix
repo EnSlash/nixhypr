@@ -34,7 +34,7 @@ in
   # SDDM Configuration
   services.displayManager.sddm = {
     enable = true;
-    theme = "catppuccin";
+    theme = pkgs.catppuccin-sddm;
     wayland.enable = true;
   };
 }
