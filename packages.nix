@@ -64,6 +64,7 @@
     tcpdump
     iperf2
     btop
+    pkgs.catppuccin-sddm
   ];
 
   fonts.packages = with pkgs; [
