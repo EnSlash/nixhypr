@@ -31,18 +31,18 @@ in
   boot.kernelParams = [ "acpi=strict" ];
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
 
-  # SDDM Configuration
-  services.displayManager.sddm = {
-        enable = true;
-        wayland = {
-          enable = true;
-        };
-        package = pkgs.kdePackages.sddm;
-        extraPackages = with pkgs; [
-          kdePackages.qtsvg
-          kdePackages.qtmultimedia
-          kdePackages.qtvirtualkeyboard
-        ];
-        theme = "catppuccin-mocha-mauve";
-      };
+  # Display Manager Configuration
+  services.displayManager = {
+    sessionPackages = [ pkgs.hyprland ];
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+      extraPackages = with pkgs; [
+        kdePackages.qtsvg
+        kdePackages.qtmultimedia
+        kdePackages.qtvirtualkeyboard
+      ];
+      theme = "catppuccin-mocha-mauve";
+    };
+  };
   }
