@@ -4,29 +4,74 @@
     "height": 30,
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "network", "tray"],
+    "modules-right": ["mpris", "pulseaudio", "network", "cpu", "memory", "custom/weather", "tray"],
     
     "hyprland/workspaces": {
-        "format": "{name}: {icon}",
-        "on-click": "activate"
+        "format": "{icon}",
+        "on-click": "activate",
+        "format-icons": {
+            "default": "",
+            "active": ""
+        }
     },
     "tray": {
-        "icon-size": 21,
+        "icon-size": 18,
         "spacing": 10
     },
     "clock": {
-        "format": "{:%Y-%m-%d %H:%M:%S}",
+        "format": " {:%H:%M}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
     "pulseaudio": {
         "format": "{volume}% {icon}",
         "format-bluetooth": "{volume}% {icon}",
         "format-muted": "",
-        "scroll-step": 1
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "scroll-step": 5
     },
     "network": {
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
-        "format-disconnected": "Disconnected ⚠"
+        "format-wifi": " ({signalStrength}%)",
+        "format-ethernet": " {ifname}",
+        "tooltip-format": "{ifname}: {ipaddr}/{cidr}\n {bandwidthUpBytes}\n {bandwidthDownBytes}",
+        "format-disconnected": "⚠ Disconnected",
+        "interval": 2
+    },
+    "cpu": {
+        "format": " {usage}%",
+        "tooltip": "CPU Usage",
+        "interval": 2
+    },
+    "memory": {
+        "format": " {}%",
+        "tooltip": "Memory Usage",
+        "interval": 2
+    },
+    "mpris": {
+        "format": " {player_icon} {title}",
+        "format-stopped": "⏹️",
+        "player-icons": {
+            "default": "▶",
+            "mpv": "🎵",
+            "spotify": ""
+        },
+        "status-icons": {
+            "playing": "▶",
+            "paused": "⏸"
+        },
+        "max-length": 30
+    },
+    "custom/weather": {
+        "exec": "~/.config/waybar/scripts/weather.sh",
+        "return-type": "json",
+        "interval": 1800 // 30 minutes
+        // Requires jq to be installed
     }
 }

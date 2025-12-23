@@ -18,6 +18,11 @@
   programs.waybar.enable = true;
   home.file.".config/waybar/config.jsonc".source = ../waybar/config.jsonc;
   home.file.".config/waybar/style.css".source = ../waybar/style.css;
+  home.file.".config/waybar/scripts" = {
+    source = ../waybar/scripts;
+    recursive = true;
+    executable = true;
+  };
 
   # Hyprpaper configuration
   home.file.".config/hypr/hyprpaper.conf".source = ./hyprpaper.conf;
@@ -36,7 +41,7 @@
     Service = {
       ExecStart = ''
         ${pkgs.swayidle}/bin/swayidle \
-          timeout 60 '${pkgs.hyprlock}/bin/hyprlock' \
+          timeout 180 '${pkgs.hyprlock}/bin/hyprlock' \
           before-sleep '${pkgs.hyprlock}/bin/hyprlock'
       '';
       Restart = "on-failure";
