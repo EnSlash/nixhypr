@@ -6,5 +6,6 @@
     mpv
     cmatrix
     kitty
+    jq
   ];
 }
