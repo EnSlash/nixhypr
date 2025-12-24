@@ -13,8 +13,8 @@ let
     mkdir -p $out
     cp -r ${mechabar-src}/. $out/
     
-    # Make the scripts directory writable so we can overwrite a file
-    chmod +w $out/scripts
+    # Make the destination file writable before overwriting
+    chmod +w $out/scripts/system-update.sh
 
     # Copy our NixOS-specific update script over the original one
     cp ${../scripts/nixos-update.sh} $out/scripts/system-update.sh
