@@ -1,0 +1,12 @@
+# Wofi config
+
+show=drun
+allow_images=true
+allow_markup=true
+style=style.css
+width=50%
+height=40%
+prompt=Search...
+hide_scroll=true
+insensitive=true
+normal_window=true
