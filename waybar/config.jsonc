@@ -43,9 +43,9 @@
         "scroll-step": 5
     },
     "network": {
-        "format-wifi": " ({signalStrength}%)",
-        "format-ethernet": " {ifname}",
-        "tooltip-format": "{ifname}: {ipaddr}/{cidr}\n {bandwidthUpBytes}\n {bandwidthDownBytes}",
+        "format-wifi": " {bandwidthUpBytes}   {bandwidthDownBytes}",
+        "format-ethernet": " {bandwidthUpBytes}   {bandwidthDownBytes}",
+        "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
         "format-disconnected": "⚠ Disconnected",
         "interval": 2
     },
