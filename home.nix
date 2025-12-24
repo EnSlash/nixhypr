@@ -1,5 +1,5 @@
 # /home/iershov/git/nixconf/home.nix
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -7,6 +7,8 @@
     ./home/packages.nix
     ./home/files.nix
   ];
+
+  nixpkgs.config.allowUnfree = true;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
