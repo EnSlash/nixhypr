@@ -15,6 +15,6 @@
     bluez
     brightnessctl
     fzf
-    (pkgs.nerd-fonts.override { fonts = [ "CommitMono" ]; })
+    pkgs.nerd-fonts.commit-mono
   ];
 }
