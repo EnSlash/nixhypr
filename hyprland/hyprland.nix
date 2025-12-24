@@ -13,9 +13,8 @@ let
     mkdir -p $out
     cp -r ${mechabar-src}/. $out/
     
-    # Ensure scripts directory exists and has correct permissions
-    mkdir -p $out/scripts
-    chmod 755 $out/scripts
+    # Make the scripts directory writable so we can overwrite a file
+    chmod +w $out/scripts
 
     # Copy our NixOS-specific update script over the original one
     cp ${../scripts/nixos-update.sh} $out/scripts/system-update.sh
