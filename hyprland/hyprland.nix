@@ -1,9 +1,10 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 let
-  mechabar-src = pkgs.fetchgit {
-    url = "https://github.com/sejjy/mechabar.git";
-    ref = "fix/v0.14.0";
+  mechabar-src = pkgs.fetchFromGitHub {
+    owner = "sejjy";
+    repo = "mechabar";
+    rev = "fix/v0.14.0";
     sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Placeholder, will be filled in by the build error
   };
 
