@@ -26,6 +26,7 @@ in
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   networking.networkmanager.enable = true;
+  services.upower.enable = true;
   nixpkgs.config.allowUnfree = true;
 
   boot.kernelParams = [ "acpi=strict" ];
