@@ -6,6 +6,21 @@ let
     ref = "fix/v0.14.0";
     sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Placeholder, will be filled in by the build error
   };
+
+  mechabar-patched = pkgs.runCommand "mechabar-nixos" {} ''
+    # Copy original mechabar source
+    cp -r ${mechabar-src}/* $out
+    
+    # Ensure scripts directory exists and has correct permissions
+    mkdir -p $out/scripts
+    chmod 755 $out/scripts
+
+    # Copy our NixOS-specific update script over the original one
+    cp ${../scripts/nixos-update.sh} $out/scripts/system-update.sh
+    
+    # Make all scripts executable
+    chmod +x $out/scripts/*
+  '';
 in
 {
   # Enable xdg-desktop-portal-hyprland
