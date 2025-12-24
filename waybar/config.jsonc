@@ -4,7 +4,7 @@
     "height": 30,
     "modules-left": ["hyprland/workspaces", "hyprland/language", "hyprland/window"],
     "modules-center": ["clock"],
-    "modules-right": ["mpris", "pulseaudio", "network", "cpu", "memory", "custom/weather", "custom/battery", "custom/updates", "tray"],
+    "modules-right": ["mpris", "pulseaudio", "network", "cpu", "memory", "custom/weather", "custom/battery", "tray"],
     
     "hyprland/workspaces": {
         "format": "{icon}",
@@ -78,10 +78,5 @@
         "exec": "~/.config/waybar/scripts/battery.sh",
         "return-type": "json",
         "interval": 10
-    },
-    "custom/updates": {
-        "exec": "~/.config/waybar/scripts/updates.sh",
-        "return-type": "json",
-        "interval": 3600 // Check every hour
     }
 }
