@@ -3,7 +3,6 @@
 let
   mechabar-src = pkgs.fetchgit {
     url = "https://github.com/sejjy/mechabar.git";
-    ref = "fix/v0.14.0";
     rev = "319665123d4677aa431c77f8a7065963c631a31a"; # Pinned revision for reproducibility
   };
 
