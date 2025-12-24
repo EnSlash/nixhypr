@@ -87,7 +87,8 @@ window#waybar {
     color: #1a1b26;
 }
 
-#battery {
+
+#custom-battery {
     background-color: #6a9372;
     color: #1a1b26;
 }

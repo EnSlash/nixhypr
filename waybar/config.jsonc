@@ -4,7 +4,7 @@
     "height": 30,
     "modules-left": ["hyprland/workspaces", "hyprland/language", "hyprland/window"],
     "modules-center": ["clock"],
-    "modules-right": ["mpris", "pulseaudio", "network", "cpu", "memory", "battery", "custom/updates", "tray"],
+    "modules-right": ["mpris", "pulseaudio", "network", "cpu", "memory", "custom/weather", "custom/battery", "custom/updates", "tray"],
     
     "hyprland/workspaces": {
         "format": "{icon}",
@@ -74,16 +74,9 @@
         "max-length": 30
     },
 
-    "battery": {
-        "bat": "BAT0",
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ⚡",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
-        "format-full": "{capacity}% ",
-        "format-low": "{capacity}% ",
-        "format-icons": ["", "", "", "", ""],
-        "tooltip-format": "{time} to {status}",
+    "custom/battery": {
+        "exec": "~/.config/waybar/scripts/battery.sh",
+        "return-type": "json",
         "interval": 60
     },
     "custom/updates": {
