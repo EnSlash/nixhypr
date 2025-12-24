@@ -7,5 +7,6 @@
     cmatrix
     kitty
     jq
+    steam
   ];
 }
