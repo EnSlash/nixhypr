@@ -8,5 +8,6 @@
     kitty
     jq
     steam
+    upower
   ];
 }
