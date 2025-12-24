@@ -4,7 +4,7 @@
     "height": 30,
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["clock"],
-    "modules-right": ["mpris", "pulseaudio", "network", "cpu", "memory", "custom/weather", "tray"],
+    "modules-right": ["mpris", "pulseaudio", "network", "cpu", "memory", "custom/weather", "battery", "tray"],
     
     "hyprland/workspaces": {
         "format": "{icon}",
@@ -73,5 +73,16 @@
         "return-type": "json",
         "interval": 1800 // 30 minutes
         // Requires jq to be installed
+    },
+    "battery": {
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ⚡",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
+        "format-full": "{capacity}% ",
+        "format-low": "{capacity}% ",
+        "format-icons": ["", "", "", "", ""],
+        "tooltip-format": "{time} to {status}",
+        "interval": 60
     }
 }

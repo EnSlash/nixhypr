@@ -80,6 +80,11 @@ window#waybar {
     color: #1a1b26;
 }
 
+#battery {
+    background-color: #6a9372;
+    color: #1a1b26;
+}
+
 #tray {
     background-color: #2f334a;
 }
