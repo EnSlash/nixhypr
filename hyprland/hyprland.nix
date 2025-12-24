@@ -5,7 +5,7 @@ let
     owner = "sejjy";
     repo = "mechabar";
     rev = "fix/v0.14.0";
-    sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Placeholder, will be filled in by the build error
+    sha256 = "sha256-pBiPGbrFciHW76h+eyf1xmGu7BeemF6PzE3qLR92jy4="; # Placeholder, will be filled in by the build error
   };
 
   mechabar-patched = pkgs.runCommand "mechabar-nixos" {} ''
