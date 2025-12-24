@@ -1,5 +1,27 @@
 { pkgs, ... }:
 
+let
+  mechabar-src = pkgs.fetchGit {
+    url = "https://github.com/sejjy/mechabar.git";
+    ref = "fix/v0.14.0";
+    rev = "319665123d4677aa431c77f8a7065963c631a31a"; # Pinned revision for reproducibility
+  };
+
+  mechabar-patched = pkgs.runCommand "mechabar-nixos" {} ''
+    # Copy original mechabar source
+    cp -r ${mechabar-src}/* $out
+    
+    # Ensure scripts directory exists and has correct permissions
+    mkdir -p $out/scripts
+    chmod 755 $out/scripts
+
+    # Copy our NixOS-specific update script over the original one
+    cp ${../scripts/nixos-update.sh} $out/scripts/system-update.sh
+    
+    # Make all scripts executable
+    chmod +x $out/scripts/*
+  '';
+in
 {
   # Enable xdg-desktop-portal-hyprland
   xdg.portal.enable = true;
@@ -16,12 +38,9 @@
 
   # Waybar configuration
   programs.waybar.enable = true;
-  home.file.".config/waybar/config.jsonc".source = ../waybar/config.jsonc;
-  home.file.".config/waybar/style.css".source = ../waybar/style.css;
-  home.file.".config/waybar/scripts" = {
-    source = ../waybar/scripts;
+  home.file.".config/waybar" = {
+    source = mechabar-patched;
     recursive = true;
-    executable = true;
   };
 
   # Hyprpaper configuration
