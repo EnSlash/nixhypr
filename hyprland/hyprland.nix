@@ -9,8 +9,9 @@ let
   };
 
   mechabar-patched = pkgs.runCommand "mechabar-nixos" {} ''
-    # Copy original mechabar source
-    cp -r ${mechabar-src}/* $out
+    # Create the output directory and copy the original source
+    mkdir -p $out
+    cp -r ${mechabar-src}/. $out/
     
     # Ensure scripts directory exists and has correct permissions
     mkdir -p $out/scripts
