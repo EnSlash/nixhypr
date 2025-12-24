@@ -75,6 +75,7 @@
         // Requires jq to be installed
     },
     "battery": {
+        "bat": "BAT0",
         "format": "{capacity}% {icon}",
         "format-charging": "{capacity}% ⚡",
         "format-plugged": "{capacity}% ",
