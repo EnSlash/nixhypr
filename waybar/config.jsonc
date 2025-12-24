@@ -2,9 +2,9 @@
     "layer": "top",
     "position": "top",
     "height": 30,
-    "modules-left": ["hyprland/workspaces", "hyprland/window"],
+    "modules-left": ["hyprland/workspaces", "hyprland/language", "hyprland/window"],
     "modules-center": ["clock"],
-    "modules-right": ["mpris", "pulseaudio", "network", "cpu", "memory", "custom/weather", "battery", "tray"],
+    "modules-right": ["mpris", "pulseaudio", "network", "cpu", "memory", "battery", "custom/updates", "tray"],
     
     "hyprland/workspaces": {
         "format": "{icon}",
@@ -13,6 +13,11 @@
             "default": "",
             "active": ""
         }
+    },
+    "hyprland/language": {
+        "format": "{}",
+        "format-en": "EN",
+        "format-ru": "RU"
     },
     "tray": {
         "icon-size": 18,
@@ -68,12 +73,7 @@
         },
         "max-length": 30
     },
-    "custom/weather": {
-        "exec": "~/.config/waybar/scripts/weather.sh",
-        "return-type": "json",
-        "interval": 1800 // 30 minutes
-        // Requires jq to be installed
-    },
+
     "battery": {
         "bat": "BAT0",
         "format": "{capacity}% {icon}",
@@ -85,5 +85,10 @@
         "format-icons": ["", "", "", "", ""],
         "tooltip-format": "{time} to {status}",
         "interval": 60
+    },
+    "custom/updates": {
+        "exec": "~/.config/waybar/scripts/updates.sh",
+        "return-type": "json",
+        "interval": 3600 // Check every hour
     }
 }
