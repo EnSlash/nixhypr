@@ -5,7 +5,7 @@
     nsxiv
     mpv
     cmatrix
-    kitty
+    alacritty
     jq
     steam
     upower
