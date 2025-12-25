@@ -11,6 +11,11 @@
     steam
     upower
 
+    # Waybar dependencies
+    rofi
+    cliphist
+    wl-clipboard
+
     # Mechabar dependencies
     bluez
     brightnessctl
