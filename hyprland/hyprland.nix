@@ -18,10 +18,11 @@ let
     # Fix shebangs for NixOS compatibility
     sed -i 's|#!/bin/bash|#!/usr/bin/env bash|g' $out/src/scripts/*
 
-    # Change all module text/icon colors to white
-    sed -i '/#workspaces,/,/#clock/s/padding: 0 5px;/padding: 0 5px;\n  color: #FFFFFF;/g' $out/src/style.css
-    # Change clock color to white
-    sed -i 's/#clock{\n  color: #5fd1fa;/##clock{\n  color: #FFFFFF;/g' $out/src/style.css
+    # Create a CSS override file for our color changes
+    echo "* { color: #FFFFFF; }" > $out/src/nixos-override.css
+
+    # Import our override file at the top of the main style.css
+    sed -i '1i @import "nixos-override.css";' $out/src/style.css
 
     # Change Arch icon to NixOS icon
     sed -i 's|"format": ""|"format": ""|g' $out/src/config
