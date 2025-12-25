@@ -15,7 +15,7 @@
     cliphist
     wl-clipboard
     light
-    networkmanager-dmenu
+    networkmanager_dmenu
     alsa-utils
     hyprpicker
     wget
