@@ -26,6 +26,9 @@ let
     # Patch colorpicker script to avoid empty color value
     sed -i '/text="$(head -n 1 "$loc\/colors")"/a \[ -z "$text" ] \&\& text="#FFFFFF"' $out/src/scripts/colorpicker.sh
 
+    # Patch network module to show upload and download speeds
+    sed -i 's|"format": "{bandwidthDownBits}"|"format": "{bandwidthDownBytes}   {bandwidthUpBytes}"|g' $out/src/config
+
     # Overwrite myupdate.sh with a NixOS compatible version
     cat > $out/src/scripts/myupdate.sh << EOF
 #!/bin/sh
