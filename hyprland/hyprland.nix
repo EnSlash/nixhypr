@@ -4,44 +4,16 @@ let
   waybar-minimal-src = pkgs.fetchFromGitHub {
     owner = "ashish-kus";
     repo = "waybar-minimal";
-    rev = "800e62cc790794bbacf50357492910ba165bdfe4"; # Pinned commit for reproducibility
-    sha256 = "sha256-Hk/NFfCg3Jbf94u+5An206nLvBwaFtJPc4wVWX8+ZbQ="; # Correct hash from build error
+    rev = "800e62cc790794bbacf50357492910ba165bdfe4"; # Pinned commit
+    sha256 = "sha256-Hk/NFfCg3Jbf94u+5An206nLvBwaFtJPc4wVWX8+ZbQ=";
   };
 
-  waybar-minimal-patched = pkgs.runCommand "waybar-minimal-nixos" {
-    nativeBuildInputs = [ pkgs.gnused ];
-  } ''
+  # A simpler derivation to just patch the shebangs
+  waybar-minimal-patched = pkgs.runCommand "waybar-minimal-nixos" {} ''
     mkdir -p $out
     cp -r ${waybar-minimal-src}/. $out/
     chmod -R +w $out
-
-    # Fix shebangs for NixOS compatibility
     sed -i 's|#!/bin/bash|#!/usr/bin/env bash|g' $out/src/scripts/*
-
-    # Apply color changes: make grey text elements white
-    sed -i 's|#clock{\n  color: #5fd1fa;\n}|#clock{\n  color: #FFFFFF;\n}|g' $out/src/style.css
-    echo "/* Custom color override by Nix Agent */" >> $out/src/style.css
-    echo "window#waybar { color: #FFFFFF; }" >> $out/src/style.css
-
-    # Patch colorpicker script to avoid empty color value
-    sed -i '/text="$(head -n 1 "$loc\/colors")"/a \[ -z "$text" ] \&\& text="#FFFFFF"' $out/src/scripts/colorpicker.sh
-
-    # Patch network module to show upload and download speeds
-    sed -i 's|"format": "{bandwidthDownBits}"|"format": "{bandwidthDownBytes}   {bandwidthUpBytes}"|g' $out/src/config
-    sed -i 's|"format": "{bandwidthDownBits}"|"format": "{bandwidthDownBytes}   {bandwidthUpBytes}"|g' $out/src/config.jsonc
-
-
-    # Overwrite myupdate.sh with a NixOS compatible version
-    cat > $out/src/scripts/myupdate.sh << EOF
-#!/bin/sh
-# NixOS-specific script to perform a system update.
-echo "Starting NixOS system upgrade..."
-sudo nixos-rebuild switch --upgrade
-echo "Update process finished. Press Enter to close this window."
-read
-EOF
-
-    chmod +x $out/src/scripts/myupdate.sh
   '';
 in
 {
@@ -60,9 +32,14 @@ in
 
   # Waybar configuration
   programs.waybar.enable = true;
+  # First, link the base theme (for style.css and scripts)
   home.file.".config/waybar" = {
     source = waybar-minimal-patched + "/src";
     recursive = true;
+  };
+  # Then, override the config with our custom one
+  home.file.".config/waybar/config.jsonc" = {
+    source = ../waybar-config.jsonc;
   };
 
   # Hyprpaper configuration
