@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 CONFIG_FILE="$HOME/.config/hypr/hyprland.conf"
 
 echo "=== Проверка конфигурации Hyprland ==="
