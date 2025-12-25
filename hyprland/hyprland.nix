@@ -15,6 +15,9 @@ let
     cp -r ${waybar-minimal-src}/. $out/
     chmod -R +w $out
 
+    # Fix shebangs for NixOS compatibility
+    sed -i 's|#!/bin/bash|#!/usr/bin/env bash|g' $out/src/scripts/*
+
     # Apply color changes: make grey text elements white
     sed -i 's|#clock{\n  color: #5fd1fa;\n}|#clock{\n  color: #FFFFFF;\n}|g' $out/src/style.css
     echo "/* Custom color override by Nix Agent */" >> $out/src/style.css
