@@ -1,5 +1,42 @@
 { pkgs, ... }:
 
+let
+  waybar-minimal-src = pkgs.fetchFromGitHub {
+    owner = "ashish-kus";
+    repo = "waybar-minimal";
+    rev = "main";
+    sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Placeholder
+  };
+
+  waybar-minimal-patched = pkgs.runCommand "waybar-minimal-nixos" {
+    nativeBuildInputs = [ pkgs.gnused ];
+  } ''
+    mkdir -p $out
+    cp -r ${waybar-minimal-src}/. $out/
+    chmod -R +w $out
+
+    # Fix shebangs for NixOS compatibility
+    sed -i 's|#!/bin/bash|#!/usr/bin/env bash|g' $out/src/scripts/*
+
+    # Patch colorpicker script to avoid empty color value
+    sed -i '/text="$(head -n 1 "$loc\/colors")"/a \[ -z "$text" ] \&\& text="#FFFFFF"' $out/src/scripts/colorpicker.sh
+    
+    # Patch network module to show upload and download speeds
+    sed -i 's|"format": "{bandwidthDownBits}"|"format": "{bandwidthDownBytes}   {bandwidthUpBytes}"|g' $out/src/config
+    sed -i 's|"format": "{bandwidthDownBits}"|"format": "{bandwidthDownBytes}   {bandwidthUpBytes}"|g' $out/src/config.jsonc
+
+    # Overwrite myupdate.sh with a NixOS compatible version
+    cat > $out/src/scripts/myupdate.sh << EOF
+#!/bin/sh
+# NixOS-specific script to perform a system update.
+echo "Starting NixOS system upgrade..."
+sudo nixos-rebuild switch --upgrade
+echo "Update process finished. Press Enter to close this window."
+read
+EOF
+    chmod +x $out/src/scripts/myupdate.sh
+  '';
+in
 {
   # Enable xdg-desktop-portal-hyprland
   xdg.portal.enable = true;
@@ -16,12 +53,9 @@
 
   # Waybar configuration
   programs.waybar.enable = true;
-  home.file.".config/waybar/config.jsonc".source = ../waybar/config.jsonc;
-  home.file.".config/waybar/style.css".source = ../waybar/style.css;
-  home.file.".config/waybar/scripts" = {
-    source = ../waybar/scripts;
+  home.file.".config/waybar" = {
+    source = waybar-minimal-patched + "/src";
     recursive = true;
-    executable = true;
   };
 
   # Hyprpaper configuration
