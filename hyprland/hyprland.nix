@@ -18,6 +18,15 @@ let
     # Fix shebangs for NixOS compatibility
     sed -i 's|#!/bin/bash|#!/usr/bin/env bash|g' $out/src/scripts/*
 
+    # Change all module text/icon colors to white
+    sed -i '/#workspaces,/,/#clock/s/padding: 0 5px;/padding: 0 5px;\n  color: #FFFFFF;/g' $out/src/style.css
+    # Change clock color to white
+    sed -i 's/#clock{\n  color: #5fd1fa;/##clock{\n  color: #FFFFFF;/g' $out/src/style.css
+
+    # Change Arch icon to NixOS icon
+    sed -i 's|"format": ""|"format": ""|g' $out/src/config
+    sed -i 's|"format": "󰊠"|"format": ""|g' $out/src/config.jsonc
+
     # Patch colorpicker script to avoid empty color value
     sed -i '/text="$(head -n 1 "$loc\/colors")"/a \[ -z "$text" ] \&\& text="#FFFFFF"' $out/src/scripts/colorpicker.sh
     
