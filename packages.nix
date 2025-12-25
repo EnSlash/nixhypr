@@ -42,8 +42,7 @@
     nerd-fonts.jetbrains-mono
     pavucontrol
     hyprlock
-    grim
-    slurp
+    hyprshot
     hyprpaper
     imagemagick
     waybar
@@ -66,6 +65,10 @@
     btop
     catppuccin-sddm
     swayidle
+    mangohud
+    protonup-qt
+    lutris
+    steam-run
   ];
 
   fonts.packages = with pkgs; [
@@ -81,4 +84,11 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
 }

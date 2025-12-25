@@ -7,6 +7,7 @@
   "gemini-cli" = unstable.gemini-cli;
   "zoom-us" = unstable.zoom-us;
   winbox4 = unstable.winbox4;
+  hyprshot = unstable.hyprshot;
 
   # Your Python package
   dvPythonEnvTest = unstable.python313.withPackages (ps: with ps; [
