@@ -6,6 +6,7 @@
     ./hyprland/hyprland.nix
     ./home/packages.nix
     ./home/files.nix
+    ./home/steam.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

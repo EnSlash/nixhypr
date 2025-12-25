@@ -2,6 +2,12 @@
 
 {
   home.packages = with pkgs; [
+    # Gaming Essentials
+    gamemode
+    mangohud
+    gamescope
+
+    # Existing packages
     nsxiv
     mpv
     cmatrix

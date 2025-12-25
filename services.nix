@@ -2,6 +2,9 @@
 { config, pkgs, ... }:
 
 {
+  # Enable gamemode daemon system-wide for game performance optimization
+  programs.gamemode.enable = true;
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 

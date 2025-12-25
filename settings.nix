@@ -34,6 +34,7 @@ in
 
   # NVIDIA settings
   services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.open = true;
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
 
