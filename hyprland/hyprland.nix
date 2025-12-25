@@ -5,7 +5,7 @@ let
     owner = "ashish-kus";
     repo = "waybar-minimal";
     rev = "main"; # Assuming main branch, can be changed
-    sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Placeholder
+    sha256 = "sha256-Hk/NFfCg3Jbf94u+5An206nLvBwaFtJPc4wVWX8+ZbQ="; # Correct hash from build error
   };
 
   waybar-minimal-patched = pkgs.runCommand "waybar-minimal-nixos" {
