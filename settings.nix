@@ -29,8 +29,13 @@ in
   services.upower.enable = true;
   nixpkgs.config.allowUnfree = true;
 
-  boot.kernelParams = [ "acpi=strict" ];
+  boot.kernelParams = [ "acpi=strict" "nvidia_drm.modeset=1" ];
   environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
+
+  # NVIDIA settings
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.opengl.enable = true;
+  hardware.opengl.driSupport32Bit = true;
 
   # Display Manager Configuration
   services.displayManager = {
