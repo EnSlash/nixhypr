@@ -4,8 +4,8 @@ let
   waybar-minimal-src = pkgs.fetchFromGitHub {
     owner = "ashish-kus";
     repo = "waybar-minimal";
-    rev = "main"; # Assuming main branch, can be changed
-    sha256 = "sha256-Hk/NFfCg3Jbf94u+5An206nLvBwaFtJPc4wVWX8+ZbQ="; # Correct hash from build error
+    rev = "800e62cc790794bbacf50357492910ba165bdfe4"; # Pinned commit for reproducibility
+    sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Placeholder
   };
 
   waybar-minimal-patched = pkgs.runCommand "waybar-minimal-nixos" {
