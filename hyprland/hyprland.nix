@@ -45,7 +45,7 @@ in
   # Waybar configuration
   programs.waybar.enable = true;
   home.file.".config/waybar" = {
-    source = waybar-minimal-patched;
+    source = waybar-minimal-patched + "/src";
     recursive = true;
   };
 
