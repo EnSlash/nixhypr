@@ -16,6 +16,9 @@ let
     mkdir -p $out
     cp -r ${mechabar-src}/. $out/
 
+    # Make the output directory writable before creating/modifying files
+    chmod +w $out
+    
     # Copy the selected theme to current-theme.css
     cp $out/themes/catppuccin-latte.css $out/current-theme.css
     
