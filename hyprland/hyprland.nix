@@ -28,6 +28,8 @@ let
 
     # Patch network module to show upload and download speeds
     sed -i 's|"format": "{bandwidthDownBits}"|"format": "{bandwidthDownBytes}   {bandwidthUpBytes}"|g' $out/src/config
+    sed -i 's|"format": "{bandwidthDownBits}"|"format": "{bandwidthDownBytes}   {bandwidthUpBytes}"|g' $out/src/config.jsonc
+
 
     # Overwrite myupdate.sh with a NixOS compatible version
     cat > $out/src/scripts/myupdate.sh << EOF
