@@ -1,21 +1,5 @@
 { pkgs, ... }:
 
-let
-  waybar-minimal-src = pkgs.fetchFromGitHub {
-    owner = "ashish-kus";
-    repo = "waybar-minimal";
-    rev = "800e62cc790794bbacf50357492910ba165bdfe4"; # Pinned commit
-    sha256 = "sha256-Hk/NFfCg3Jbf94u+5An206nLvBwaFtJPc4wVWX8+ZbQ=";
-  };
-
-  # A simpler derivation to just patch the shebangs
-  waybar-minimal-patched = pkgs.runCommand "waybar-minimal-nixos" {} ''
-    mkdir -p $out
-    cp -r ${waybar-minimal-src}/. $out/
-    chmod -R +w $out
-    sed -i 's|#!/bin/bash|#!/usr/bin/env bash|g' $out/src/scripts/*
-  '';
-in
 {
   # Enable xdg-desktop-portal-hyprland
   xdg.portal.enable = true;
@@ -32,14 +16,12 @@ in
 
   # Waybar configuration
   programs.waybar.enable = true;
-  # First, link the base theme (for style.css and scripts)
-  home.file.".config/waybar" = {
-    source = waybar-minimal-patched + "/src";
+  home.file.".config/waybar/config.jsonc".source = ../waybar/config.jsonc;
+  home.file.".config/waybar/style.css".source = ../waybar/style.css;
+  home.file.".config/waybar/scripts" = {
+    source = ../waybar/scripts;
     recursive = true;
-  };
-  # Then, override the config with our custom one
-  home.file.".config/waybar/config.jsonc" = {
-    source = ../waybar-config.jsonc;
+    executable = true;
   };
 
   # Hyprpaper configuration
