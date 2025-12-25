@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
   mechabar-src = pkgs.fetchFromGitHub {
@@ -27,12 +27,20 @@ let
     sed -i 's|@define-color overlay1 #......;|@define-color overlay1 #FFFFFF;|g' $out/current-theme.css
     sed -i 's|@define-color overlay2 #......;|@define-color overlay2 #FFFFFF;|g' $out/current-theme.css
     
-    # Make the destination file writable before overwriting the update script
-    chmod +w $out/scripts/system-update.sh
+    # Embed the content of nixos-update.sh directly
+    cat > $out/scripts/system-update.sh << EOF
+#!/bin/sh
+# NixOS-specific script to perform a system update.
+# This will be run in a terminal window.
 
-    # Copy our NixOS-specific update script over the original one
-    cp ${../scripts/nixos-update.sh} $out/scripts/system-update.sh
-    
+echo "Starting NixOS system upgrade..."
+sudo nixos-rebuild switch --upgrade
+
+# Keep the terminal open to see the result
+echo "Update process finished. Press Enter to close this window."
+read
+EOF
+
     # Make all scripts executable
     chmod +x $out/scripts/*
   '';
