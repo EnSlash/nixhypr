@@ -1,53 +1,5 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
-let
-  mechabar-src = pkgs.fetchFromGitHub {
-    owner = "sejjy";
-    repo = "mechabar";
-    rev = "fix/v0.14.0";
-    sha256 = "sha256-pBiPGbrFciHW76h+eyf1xmGu7BeemF6PzE3qLR92jy4="; # Correct hash from build error
-  };
-
-  mechabar-patched = pkgs.runCommand "mechabar-nixos" {
-    # Add sed to dependencies for the runCommand
-    nativeBuildInputs = [ pkgs.gnused ];
-  } ''
-    # Create the output directory and copy the original source
-    mkdir -p $out
-    cp -r ${mechabar-src}/. $out/
-
-    # Recursively add write permissions to the copied files
-    chmod -R +w $out
-    
-    # Copy the selected theme to current-theme.css
-    cp $out/themes/catppuccin-latte.css $out/current-theme.css
-    
-    # Apply color changes: make grey text elements white
-    sed -i 's|@define-color text #......;|@define-color text #FFFFFF;|g' $out/current-theme.css
-    sed -i 's|@define-color subtext0 #......;|@define-color subtext0 #FFFFFF;|g' $out/current-theme.css
-    sed -i 's|@define-color subtext1 #......;|@define-color subtext1 #FFFFFF;|g' $out/current-theme.css
-    sed -i 's|@define-color overlay0 #......;|@define-color overlay0 #FFFFFF;|g' $out/current-theme.css
-    sed -i 's|@define-color overlay1 #......;|@define-color overlay1 #FFFFFF;|g' $out/current-theme.css
-    sed -i 's|@define-color overlay2 #......;|@define-color overlay2 #FFFFFF;|g' $out/current-theme.css
-    
-    # Embed the content of nixos-update.sh directly
-    cat > $out/scripts/system-update.sh << EOF
-#!/bin/sh
-# NixOS-specific script to perform a system update.
-# This will be run in a terminal window.
-
-echo "Starting NixOS system upgrade..."
-sudo nixos-rebuild switch --upgrade
-
-# Keep the terminal open to see the result
-echo "Update process finished. Press Enter to close this window."
-read
-EOF
-
-    # Make all scripts executable
-    chmod +x $out/scripts/*
-  '';
-in
 {
   # Enable xdg-desktop-portal-hyprland
   xdg.portal.enable = true;
@@ -64,9 +16,12 @@ in
 
   # Waybar configuration
   programs.waybar.enable = true;
-  home.file.".config/waybar" = {
-    source = mechabar-patched;
+  home.file.".config/waybar/config.jsonc".source = ../waybar/config.jsonc;
+  home.file.".config/waybar/style.css".source = ../waybar/style.css;
+  home.file.".config/waybar/scripts" = {
+    source = ../waybar/scripts;
     recursive = true;
+    executable = true;
   };
 
   # Hyprpaper configuration
