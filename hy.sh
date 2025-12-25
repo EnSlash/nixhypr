@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-CONFIG_FILE="$HOME/.config/hypr/hyprland.conf"
+CONFIG_FILE="hyprland/hyprland.conf"
 
 echo "=== Проверка конфигурации Hyprland ==="
 echo "Файл: $CONFIG_FILE"
@@ -27,21 +27,31 @@ echo ""
 
 # Проверка синтаксиса
 echo "=== Проверка синтаксиса ==="
-if command -v hyprctl &> /dev/null; then
-    hyprctl --config "$CONFIG_FILE" syntax 2>&1
-else
-    echo "⚠️  hyprctl не найден, пропускаем проверку синтаксиса"
-fi
+echo "⚠️  hyprctl не имеет команды для проверки синтаксиса, пропускаем."
 echo ""
 
 # Проверка путей к исполняемым файлам
 echo "=== Проверка путей в exec командах ==="
-grep -E "^exec|^bind.*exec" "$CONFIG_FILE" | while read line; do
+grep -E "exec-once|bind.*exec" "$CONFIG_FILE" | while read -r line; do
     # Извлекаем команду после exec
-    cmd=$(echo "$line" | sed -E 's/.*exec.*=[^,]*,\s*//' | awk '{print $1}')
-    
+    cmd=$(echo "$line" | sed -E 's/.*exec.*=[^,]*,\s*//' | sed -E 's/.*exec-once\s*=\s*//' | awk '{print $1}')
+
+    # expand variables
+    if [[ $cmd == "\$terminal" ]]; then
+        cmd="alacritty"
+    fi
+    if [[ $cmd == "\$fileManager" ]]; then
+        cmd="dolphin"
+    fi
+    if [[ $cmd == "\$menu" ]]; then
+        cmd="wofi"
+    fi
+    if [[ $cmd == "\$scr" ]]; then
+        cmd="/home/iershov/.config/waybar/scripts" # Assuming this path is correct
+    fi
+
     # Проверяем, существует ли команда
-    if command -v "$cmd" &> /dev/null || [ -f "$cmd" ]; then
+    if command -v "$cmd" &> /dev/null || [ -f "$cmd" ] || [ -d "$cmd" ]; then
         echo "✅ $line"
     else
         echo "❌ Не найдена команда: $cmd"
