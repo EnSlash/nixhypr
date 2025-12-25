@@ -1,0 +1,88 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "modules-left": ["hyprland/workspaces", "hyprland/language", "hyprland/window"],
+    "modules-center": ["clock"],
+    "modules-right": ["mpris", "pulseaudio", "network", "cpu", "memory", "custom/weather", "custom/battery", "tray"],
+    
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "on-click": "activate",
+        "format-icons": {
+            "default": "",
+            "active": ""
+        }
+    },
+    "hyprland/language": {
+        "format": "{}",
+        "format-en": "EN",
+        "format-ru": "RU"
+    },
+    "tray": {
+        "icon-size": 18,
+        "spacing": 10
+    },
+    "clock": {
+        "format": " {:%H:%M}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "scroll-step": 5
+    },
+    "network": {
+        "format-wifi": " {bandwidthUpBytes}   {bandwidthDownBytes}",
+        "format-ethernet": " {bandwidthUpBytes}   {bandwidthDownBytes}",
+        "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+        "format-disconnected": "⚠ Disconnected",
+        "interval": 2
+    },
+    "cpu": {
+        "format": " {usage}%",
+        "tooltip": "CPU Usage",
+        "interval": 2
+    },
+    "memory": {
+        "format": " {}%",
+        "tooltip": "Memory Usage",
+        "interval": 2
+    },
+    "mpris": {
+        "format": " {player_icon} {title}",
+        "format-stopped": "⏹️",
+        "player-icons": {
+            "default": "▶",
+            "mpv": "🎵",
+            "spotify": ""
+        },
+        "status-icons": {
+            "playing": "▶",
+            "paused": "⏸"
+        },
+        "max-length": 30
+    },
+
+    "custom/battery": {
+        "exec": "~/.config/waybar/scripts/battery.sh",
+        "return-type": "json",
+        "interval": 10
+    },
+    "custom/weather": {
+        "exec": "~/.config/waybar/scripts/weather.sh",
+        "return-type": "json",
+        "interval": 1800 // 30 minutes
+        // Requires jq to be installed
+    }
+}
