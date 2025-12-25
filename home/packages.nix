@@ -9,5 +9,15 @@
     jq
     steam
     upower
+
+    # Dependencies for waybar-minimal
+    rofi
+    cliphist
+    wl-clipboard
+    light
+    networkmanager-dmenu
+    alsa-utils
+    hyprpicker
+    wget
   ];
 }
