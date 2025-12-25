@@ -1,0 +1,129 @@
+{
+  "layer": "top",
+  "position": "bottom",
+  "modules-left": [
+    "custom/logo",
+    "clock",
+    "disk",
+    "memory",
+    "cpu",
+    "temperature",
+    "custom/powerDraw"
+  ],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    "hyprland/window",
+    "tray",
+    "custom/clipboard",
+    "backlight",
+    "idle_inhibitor",
+    "custom/colorpicker",
+    "bluetooth",
+    "pulseaudio",
+    "network",
+    "battery"
+  ],
+  "reload_style_on_change": true,
+  "custom/logo": {
+    "format": "󰊠",
+    "tooltip": false,
+    "on-click": "~/.config/rofi/scripts/powermenu.sh"
+  },
+  "clock": {
+    "format": "{:%I:%M:%S %p}",
+    "interval": 1,
+    "tooltip-format": "\n<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "disk": {
+    "interval": 30,
+    "format": " {percentage_used}%",
+    "path": "/"
+  },
+  "memory": {
+    "format": " {percentage}%"
+  },
+  "cpu": {
+    "interval": 1,
+    "format": " {usage}%"
+  },
+  "temperature": {
+    "format": " {temperatureC}°C",
+    "format-critical": " {temperatureC}°C",
+    "interval": 1,
+    "critical-threshold": 80,
+    "on-click": "foot btop"
+  },
+  "custom/powerDraw": {
+    "format": "{}",
+    "interval": 1,
+    "exec": "~/.config/waybar/scripts/powerdraw.sh",
+    "return-type": "json"
+  },
+  "hyprland/workspaces": {
+    "format": "<span font='18px'>{icon}</span>",
+    "format-icons": { "default": "" }
+  },
+  "hyprland/window": {
+    "format": "( {class} )"
+  },
+  "tray": {
+    "icon-size": 14,
+    "spacing": 10
+  },
+  "custom/clipboard": {
+    "format": "",
+    "on-click": "sh -c 'cliphist list | rofi -dmenu | cliphist decode | wl-copy'"
+  },
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "<span font='12'>{icon}</span>",
+    "format-icons": ["", "", "", "", "", "", "", "", "", ""]
+  },
+  "idle_inhibitor": {
+    "format": "<span font='12'>{icon}</span>",
+    "format-icons": {
+      "activated": "󰾪",
+      "deactivated": "󰅶"
+    }
+  },
+  "custom/colorpicker": {
+    "format": "{}",
+    "return-type": "json",
+    "interval": "once",
+    "exec": "~/.config/waybar/scripts/colorpicker.sh -j",
+    "on-click": "sleep 1 && ~/.config/waybar/scripts/colorpicker.sh"
+  },
+  "bluetooth": {
+    "format-on": "󰂰",
+    "format-off": "",
+    "format-disabled": "󰂲",
+    "format-connected": "󰂴",
+    "on-click": "rofi-bluetooth"
+  },
+  "pulseaudio": {
+    "format": "{icon}",
+    "format-bluetooth": "󰂰",
+    "format-muted": "",
+    "tooltip-format": "{volume}% {icon}",
+    "format-icons": { "default": ["🕨", "🕩", "🕪"] },
+    "on-click": "amixer sset Master toggle",
+    "on-click-right": "pavucontrol"
+  },
+  "network": {
+    "format-wifi": " {bandwidthDownBytes}   {bandwidthUpBytes}",
+    "format-ethernet": " {bandwidthDownBytes}   {bandwidthUpBytes}",
+    "format-disconnected": "󱐅",
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+    "on-click": "networkmanager_dmenu"
+  },
+  "battery": {
+    "interval": 1,
+    "states": { "warning": 30, "critical": 20 },
+    "format": "{capacity}% <span font='16px'>{icon}</span>",
+    "format-charging": "{capacity}% <span font='16px'>{icon}</span>",
+    "format-plugged": "{capacity}% 󰠠",
+    "format-icons": ["󰪞", "󰪟", "󰪠", "󰪡", "󰪢", "󰪣", "󰪤", "󰪥"]
+  }
+}
