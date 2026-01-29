@@ -57,7 +57,7 @@
     vscode
     code-cursor
     gemini-cli
-    zoom-us
+    #zoom-us
     winbox4
     dvPythonEnvTest
     tcpdump
