@@ -59,9 +59,18 @@ in
   programs.hyprland.enable = true;
 
   system.activationScripts.install-flatpaks = ''
-    # Wait for network to be online, with a 30-second timeout
-    if ! ${pkgs.networkmanager}/bin/nm-online -t 30; then
-        echo "Network did not come online within 30 seconds, skipping flatpak installation."
+    # Wait for network to be online by pinging a known host
+    echo "Waiting for network connectivity..."
+    for i in $(seq 1 30); do
+        if ${pkgs.iputils}/bin/ping -c 1 8.8.8.8 &> /dev/null; then
+            echo "Network is online."
+            break
+        fi
+        sleep 1
+    done
+
+    if ! ${pkgs.iputils}/bin/ping -c 1 8.8.8.8 &> /dev/null; then
+        echo "Network is not online after 30 seconds, skipping flatpak installation."
         exit 0
     fi
 
