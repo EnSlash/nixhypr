@@ -57,4 +57,9 @@ in
 
   # Enable Hyprland system-wide
   programs.hyprland.enable = true;
+
+  system.activationScripts.install-flatpaks = ''
+    ${pkgs.flatpak}/bin/flatpak install --system --noninteractive flathub \
+      us.zoom.Zoom
+  '';
 }
