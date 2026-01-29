@@ -21,10 +21,9 @@ in
   home-manager.backupFileExtension = "backup";
 
   services.flatpak.enable = true;
-  services.flatpak.packages = [ "com.discordapp.Discord" ];
 
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  xdg.portal.config.common.default = [ "gtk" ];
+  xdg.portal.config.common.default = "gtk";
   
   nixpkgs.overlays = [ (import ./overlays.nix { unstable = unstable; }) ];
 
