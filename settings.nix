@@ -22,6 +22,13 @@ in
 
 
 
+  { services.flatpak.enable = true; }
+
+  {
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  xdg.portal.config.common.default = "gtk";
+  } 
+  
   nixpkgs.overlays = [ (import ./overlays.nix { unstable = unstable; }) ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
