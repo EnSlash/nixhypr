@@ -59,6 +59,12 @@ in
   programs.hyprland.enable = true;
 
   system.activationScripts.install-flatpaks = ''
+    # Wait for network to be online, with a 30-second timeout
+    if ! ${pkgs.networkmanager}/bin/nm-online -t 30; then
+        echo "Network did not come online within 30 seconds, skipping flatpak installation."
+        exit 0
+    fi
+
     ${pkgs.flatpak}/bin/flatpak install --system --noninteractive flathub \
       us.zoom.Zoom
   '';
